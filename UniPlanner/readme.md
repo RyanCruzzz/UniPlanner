@@ -1,6 +1,6 @@
-# Academic Task Manager
+# UniPlanner
 
-O Academic Task Manager é uma aplicação web desenvolvida para ajudar estudantes universitários a organizar suas responsabilidades acadêmicas, como trabalhos, provas, listas de exercícios e projetos.
+O UniPlanner é uma aplicação web desenvolvida para ajudar estudantes universitários a organizar suas responsabilidades acadêmicas, como trabalhos, provas, listas de exercícios e projetos.
 
 O sistema permite que o usuário crie tarefas associadas a disciplinas específicas, acompanhe prazos de entrega, visualize o progresso das atividades e gerencie tarefas concluídas em uma interface organizada.
 
@@ -152,7 +152,7 @@ Isso cria um ambiente de foco para visualização e edição da tarefa.
 
 # Estrutura do Projeto
 
-Academic-Task-Manager
+UniPlanner
 
 css/
 Arquivos responsáveis pelo estilo da aplicação, layout e aparência dos componentes.
