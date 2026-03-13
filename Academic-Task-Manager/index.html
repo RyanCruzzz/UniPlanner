@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academic Task Manager</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap"> <!--uso o parametro family para dizer quais fontes eu quero carregar do googleapis-->
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-    <header>
-        <nav class="navbar">
-            <h1 class="logo">Academic Task Manager</h1>
+    <nav id="navbar">
+        <div class="nav-logo">
+            <span class="nav-logo-icon">📚</span>
+            <span class="nav-logo-text">ATM</span>
+        </div>
+        <div class="nav-date" id="navDate">
+            <!-- Vou usar o js para preencher essa div depois -->
+        </div>
+    </nav>
 
-            <div class="nav-actions">
-                <button id="add-subject-btn">Adicionar Disciplina</button>
+    <main class="app">
+
+        <header class="app-header">
+            <h1 class="app-title">Minhas Tarefas</h1>
+            <p class="app-subtitle">Gerencie suas atividades acadêmicas</p>
+        </header>
+
+        <section id="subjectsSection">
+            <h2 class="section-label">Disciplinas</h2>
+            <div class="subjects-grid" id="subjectsGrid">
+                <!-- novamente o js vai ser utilizado para preencher ela  -->
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section id="subjects-container">
-
         </section>
+
+        <section id="completedSection">
+            <h2 class="section-label">Tarefas Concluídas</h2>
+            <div class="completed-grid" id="completedGrid">
+                <!-- Vou usar o js -->
+            </div>
+        </section>
+
     </main>
 
-    <section id="completed-section">
 
-        <h2>Tarefas Concluídas</h2>
-
-        <div id="completed-container"></div>
-    </section>
-
-    <script src="js/scrips.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
-
+    
 </html>
