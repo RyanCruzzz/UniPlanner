@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0d0f14;
+    --surface: #13161e; /*a ideia dessa variável é ser a primeira camada, acima do bg*/
+    --surface2: #1a1e28; /*já aqui é a segunda camada*/
+    --border: rgba(255, 255, 255, 0.07);
+    --border2: rgba(255, 255, 255, 0.12);
+    --text: #e8eaf2;
+    --text-muted: #6b7191; /*uso para informações secundárias, datas, descrições. Vai ter menos destaque que o texto principal*/
+    --accent: #7c6ffc; /*destaque, cor que escolhida para a identidade visual do projeto, que posteriormente vou adicionar nos botões, ícones ativos, e elementtos que precisam chamar a atenção*/
+    --font-display: 'Syne', sans-serif; /*é uma fonte de exibição Syne, é uma fonte forte e geométrica. Com isso eu crio personalidades em alguns elementos que vou colocar depois*/
+    --font-body:: 'DM Sans', sans-serif;
+}
