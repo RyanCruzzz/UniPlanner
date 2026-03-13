@@ -1,10 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-:root {
+:root { /*o uso do root, é pq ele é um seletor que representar o elemento raiz do documento, que no caso seria o html. Com o root, as variáveis ficam globais, assim podendo ser usadas em qualquer lugar do css*/
     --bg: #0d0f14;
     --surface: #13161e; /*a ideia dessa variável é ser a primeira camada, acima do bg*/
     --surface2: #1a1e28; /*já aqui é a segunda camada*/
@@ -14,5 +8,83 @@
     --text-muted: #6b7191; /*uso para informações secundárias, datas, descrições. Vai ter menos destaque que o texto principal*/
     --accent: #7c6ffc; /*destaque, cor que escolhida para a identidade visual do projeto, que posteriormente vou adicionar nos botões, ícones ativos, e elementtos que precisam chamar a atenção*/
     --font-display: 'Syne', sans-serif; /*é uma fonte de exibição Syne, é uma fonte forte e geométrica. Com isso eu crio personalidades em alguns elementos que vou colocar depois*/
-    --font-body:: 'DM Sans', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh; /*lembrando que vh (viewport height) é a área visível da janela do navegador, vh é uma unidade relativa, 100vh = 100% da altura da janela, e 50vh é a metade. 100vh é relativo à janela do navegador
+    e nesse caso, o min-height: 100vh no body, garante que mesmo com pouco conteúdo na página, o fundo escuro cobre a tela inteira. Sem isso, se tiver só um parágrafo, o fundo escuro cobrira apenas aquele pedaço*/
+}
+
+.navbar {
+    position: sticky; /*quando scrollar a página, o a navbar vai fixar no topo e acompanhar, mas quando voltarmos para o topo, ela vai ficar na sua posição padrão*/
+    top: 0; /*tem relação com o position*/
+    z-index: 100; /*o z-index funciona assim, pense na tela como uma pilha de folhas de papel, ele controla qual folha fica na frente*/
+    height: 60px;
+    padding: 0 32px;
+    background: rgba(13, 15, 20, 0.85);
+    backdrop-filter: blur(20px); 
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-weight: 800; /*lembrando que aqui defino a espessura da letra, o peso dela*/
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 5px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+}
+
+.app {
+    max-width: 1400px; /*aqui limito a largura em telas grandes. Se a tela passar de 1400, o conteúdo vai continuar ocupando 1400px*/
+    margin: 0 auto; /*centralizo na página*/
+    padding: 32px;
+}
+
+.app-header {
+    margin-bottom: 32px; /*colocamos uma margin abaixo do cabeçalho (header)*/
+}
+
+.app-title {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.app-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.section-label {
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
 }
