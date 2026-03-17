@@ -88,3 +88,32 @@ body {
     color: var(--text-muted);
     margin-bottom: 16px;
 }
+
+.subject-card { /*classe que criamos para o HTML através do JS*/
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden; /*quando o elemento filho "vaza" para fora. O overflow: hidden corta tudo que ultrapassar as bordas do elemento pai. No nosso caso o border-radius: 16px arredonda os cantos do card. Sem o overflow: hidden, o conteúdo interno poderia aparecer nos cantos retos, quebrando o visual arredondado*/
+}
+
+.subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.subject-header {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+.subject-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+}
+
