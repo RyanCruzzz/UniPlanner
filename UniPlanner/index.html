@@ -42,6 +42,21 @@
 
     </main>
 
+    <div class="overlay" id="overlay"></div>
+
+    <div class="modal" id="modalSubject">
+        <h2 class="modal-title">Nova Disciplina</h2>
+
+        <div class="form-group">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" id="subjectName" placeholder="Ex: Programção Web">
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveSubject()">Criar</button>
+        </div>
+    </div>
 
     <script src="js/model.js"></script>
     <script src="js/scripts.js"></script>

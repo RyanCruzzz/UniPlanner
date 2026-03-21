@@ -117,3 +117,58 @@ body {
     font-weight: 700;
 }
 
+.add-subject-card {
+    border: 1.5px dashed var(--border2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 13px;
+    min-height: 100px;
+    transition: all 0.2s;
+}
+
+.add-subject-card:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
+.overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modal {
+    position: fixed;
+    z-index: 300;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: 18px;
+    padding: 28px;
+    width: 380px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
+.modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
