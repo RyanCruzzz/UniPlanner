@@ -172,3 +172,37 @@ body {
     opacity: 1;
     pointer-events: all;
 }
+
+.color-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.15s;
+}
+
+.color-dot:hover {
+    transform: scale(1.15);
+}
+
+.color-picker {
+    display: flex;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+.subject-header {
+    position: relative;
+    padding: 16px 18px;
+}
+
+.subject-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--subject-color);
+}

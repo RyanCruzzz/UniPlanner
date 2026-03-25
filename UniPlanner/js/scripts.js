@@ -3,7 +3,7 @@ function renderSubjects() {
     grid.innerHTML = ''
         subjects.forEach(function(subject){ 
             const card = `
-            <div class="subject-card">
+            <div class="subject-card" style="--subject-color:${subject.color}">
                 <div class="subject-header">
                     <div class="subject-name">${subject.name}</div>
                 </div>
@@ -20,6 +20,8 @@ function renderSubjects() {
 function openSubjectModal() {
     document.getElementById('overlay').classList.add('active')
     document.getElementById('modalSubject').classList.add('active')
+   
+    buildColorPicker()
 }
 
 function closeModal() {
@@ -46,6 +48,20 @@ function saveSubject() {
 
     closeModal()
     renderSubjects()
+}
+
+
+function buildColorPicker() {
+    const colorCircle = document.getElementById('colorPicker')
+    colorCircle.innerHTML = ''
+    COLORS.forEach(function(circle) {
+        const color = `<div class="color-dot" style="background: ${circle}" onclick="selectColor('${circle}')"></div>`
+        colorCircle.innerHTML += color
+    })
+}
+
+function selectColor(color) {
+    selectedColor = color
 }
 
 
