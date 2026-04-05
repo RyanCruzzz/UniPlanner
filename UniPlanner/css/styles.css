@@ -195,6 +195,10 @@ body {
 .subject-header {
     position: relative;
     padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
 }
 
 .subject-header::before {
@@ -205,4 +209,108 @@ body {
     bottom: 0;
     width: 3px;
     background: var(--subject-color);
+}
+
+.add-task-btn {
+    width: calc(100% - 20px);
+    margin: 6px 10px 10px;
+    padding: 9px;
+    background: transparent;
+    border: 1px dashed var(--border2);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-task-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.modal-title {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-input, .form-textarea{
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 9px;
+    padding: 10px 13px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text);
+    outline: none;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 72px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 9px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--surface2);
+    color: var(--text);
+    transition: all 0.15s;
+}
+
+.btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.tasks-list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.task-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.task-item:hover {
+    border-color: var(--border2);
 }

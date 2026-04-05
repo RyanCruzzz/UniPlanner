@@ -2,11 +2,22 @@ function renderSubjects() {
     const grid = document.getElementById(`subjectsGrid`)
     grid.innerHTML = ''
         subjects.forEach(function(subject){ 
+            const subjectTasks = tasks.filter(function(task) {
+                return task.subjectId === subject.id
+            })
             const card = `
             <div class="subject-card" style="--subject-color:${subject.color}">
                 <div class="subject-header">
                     <div class="subject-name">${subject.name}</div>
                 </div>
+                <div class="tasks-list">
+                    ${subjectTasks.map(function(task){
+                        return `<div class="task-item">${task.title}</div>`
+                    }).join('')}
+                </div>
+                <button class="add-task-btn" onclick="openTaskModal('${subject.id}')">
+                + Adicionar tarefa
+                </button>
             </div>`
             grid.innerHTML += card
         })
@@ -27,6 +38,7 @@ function openSubjectModal() {
 function closeModal() {
     document.getElementById('overlay').classList.remove('active')
     document.getElementById('modalSubject').classList.remove('active')
+    document.getElementById('modalTask').classList.remove('active')
 }
 
 function saveSubject() {
@@ -62,6 +74,39 @@ function buildColorPicker() {
 
 function selectColor(color) {
     selectedColor = color
+}
+
+function openTaskModal(subjectId) {
+    document.getElementById('overlay').classList.add('active')
+    document.getElementById('modalTask').classList.add('active')
+    currentSubjectId = subjectId
+}
+
+function saveTask() {
+    const title = document.getElementById('taskTitle').value
+    const description = document.getElementById('taskDesc').value
+    const deadline = document.getElementById('taskDeadline').value
+
+    if (title === '' || deadline === '') {
+        return
+    }
+    const newTask = {
+        id: 't' + Date.now(),
+        title: title,
+        description: description,
+        subjectId: currentSubjectId,
+        deadline: deadline,
+        done: false
+    }
+
+    tasks.push(newTask)
+
+    document.getElementById('taskTitle').value = ''
+    document.getElementById('taskDesc').value = ''
+    document.getElementById('taskDeadline').value = ''
+    
+    closeModal()
+    renderSubjects()
 }
 
 
