@@ -313,6 +313,7 @@ body {
 
 .task-item:hover {
     border-color: var(--border2);
+<<<<<<< HEAD
 }
 
 .task-top {
@@ -375,4 +376,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 12px;
+=======
+>>>>>>> 78762e5ef6e564e73303a18b97b85b6ca5d07f2f
 }

@@ -12,12 +12,16 @@ function renderSubjects() {
                 </div>
                 <div class="tasks-list">
                     ${subjectTasks.map(function(task){
+<<<<<<< HEAD
                         return`<div class="task-item" id="task-${task.id}">
                             <div class="task-top">
                                 <div class="task-title">${task.title}</div>
                                 <button class="task-check" onclick="completeTask('${task.id}')">✓</button>
                             </div>
                         </div>`
+=======
+                        return `<div class="task-item">${task.title}</div>`
+>>>>>>> 78762e5ef6e564e73303a18b97b85b6ca5d07f2f
                     }).join('')}
                 </div>
                 <button class="add-task-btn" onclick="openTaskModal('${subject.id}')">
@@ -114,6 +118,7 @@ function saveTask() {
     renderSubjects()
 }
 
+<<<<<<< HEAD
 function completeTask(id) {
     const task = tasks.find(function(t){
         return t.id === id
@@ -149,3 +154,9 @@ function renderCompleted() {
 
 renderSubjects()
 renderCompleted()
+=======
+
+
+renderSubjects()
+
+>>>>>>> 78762e5ef6e564e73303a18b97b85b6ca5d07f2f
