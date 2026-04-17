@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniPlanner</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap"> <!--uso o parametro family para dizer quais fontes eu quero carregar do googleapis-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -14,9 +14,7 @@
         <div class="nav-logo">
             <span class="nav-logo-text">UniPlanner</span>
         </div>
-        <div class="nav-date" id="navDate">
-            <!-- Vou usar o js para preencher essa div depois -->
-        </div>
+        <div class="nav-date" id="navDate"></div>
     </nav>
 
     <main class="app">
@@ -28,16 +26,12 @@
 
         <section id="subjectsSection">
             <h2 class="section-label">Disciplinas</h2>
-            <div class="subjects-grid" id="subjectsGrid">
-                <!-- novamente o js vai ser utilizado para preencher ela  -->
-            </div>
+            <div class="subjects-grid" id="subjectsGrid"></div>
         </section>
 
         <section id="completedSection">
             <h2 class="section-label">Tarefas Concluídas</h2>
-            <div class="completed-grid" id="completedGrid">
-                <!-- Vou usar o js -->
-            </div>
+            <div class="completed-grid" id="completedGrid"></div>
         </section>
 
     </main>
@@ -46,17 +40,14 @@
 
     <div class="modal" id="modalSubject">
         <h2 class="modal-title">Nova Disciplina</h2>
-
         <div class="form-group">
             <label class="form-label">Nome</label>
-            <input type="text" class="form-input" id="subjectName" placeholder="Ex: Programção Web">
+            <input type="text" class="form-input" id="subjectName" placeholder="Ex: Programação Web">
         </div>
-
         <div class="form-group">
             <label class="form-label">Cor</label>
             <div class="color-picker" id="colorPicker"></div>
         </div>
-
         <div class="modal-actions">
             <button class="btn" onclick="closeModal()">Cancelar</button>
             <button class="btn btn-primary" onclick="saveSubject()">Criar</button>
@@ -65,30 +56,46 @@
 
     <div class="modal" id="modalTask">
         <h2 class="modal-title">Nova Tarefa</h2>
-
         <div class="form-group">
             <label class="form-label">Título</label>
             <input type="text" class="form-input" id="taskTitle" placeholder="Ex: Prova N1">
         </div>
-
         <div class="form-group">
             <label class="form-label">Descrição</label>
-            <textarea class="form-textarea" id="taskDesc" placeholder=" Breve descrição..."></textarea>
+            <textarea class="form-textarea" id="taskDesc" placeholder="Breve descrição..."></textarea>
         </div>
-
         <div class="form-group">
             <label class="form-label">Prazo</label>
             <input type="date" class="form-input" id="taskDeadline">
         </div>
-
         <div class="modal-actions">
             <button class="btn" onclick="closeModal()">Cancelar</button>
             <button class="btn btn-primary" onclick="saveTask()">Criar</button>
         </div>
     </div>
 
+    <div class="modal" id="modalEditTask">
+        <h2 class="modal-title">Editar Tarefa</h2>
+        <div class="form-group">
+            <label class="form-label">Título</label>
+            <input type="text" class="form-input" id="editTaskTitle" placeholder="Ex: Prova N1">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Descrição</label>
+            <textarea class="form-textarea" id="editTaskDesc" placeholder="Breve descrição..."></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Prazo</label>
+            <input type="date" class="form-input" id="editTaskDeadline">
+        </div>
+        <div class="modal-actions">
+            <button class="btn" onclick="closeModal()">Cancelar</button>
+            <button class="btn btn-primary" onclick="saveEditTask()">Salvar</button>
+        </div>
+    </div>
+
     <script src="js/model.js"></script>
     <script src="js/scripts.js"></script>
 </body>
-    
+
 </html>

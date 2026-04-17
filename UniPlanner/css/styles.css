@@ -1,13 +1,16 @@
-:root { /*o uso do root, é pq ele é um seletor que representar o elemento raiz do documento, que no caso seria o html. Com o root, as variáveis ficam globais, assim podendo ser usadas em qualquer lugar do css*/
+:root {
     --bg: #0d0f14;
-    --surface: #13161e; /*a ideia dessa variável é ser a primeira camada, acima do bg*/
-    --surface2: #1a1e28; /*já aqui é a segunda camada*/
+    --surface: #13161e;
+    --surface2: #1a1e28;
     --border: rgba(255, 255, 255, 0.07);
     --border2: rgba(255, 255, 255, 0.12);
     --text: #e8eaf2;
-    --text-muted: #6b7191; /*uso para informações secundárias, datas, descrições. Vai ter menos destaque que o texto principal*/
-    --accent: #7c6ffc; /*destaque, cor que escolhida para a identidade visual do projeto, que posteriormente vou adicionar nos botões, ícones ativos, e elementtos que precisam chamar a atenção*/
-    --font-display: 'Syne', sans-serif; /*é uma fonte de exibição Syne, é uma fonte forte e geométrica. Com isso eu crio personalidades em alguns elementos que vou colocar depois*/
+    --text-muted: #6b7191;
+    --accent: #7c6ffc;
+    --danger: #f05454;
+    --warning: #f5a623;
+    --success: #3ecf8e;
+    --font-display: 'Syne', sans-serif;
     --font-body: 'DM Sans', sans-serif;
 }
 
@@ -21,18 +24,17 @@ body {
     font-family: var(--font-body);
     background: var(--bg);
     color: var(--text);
-    min-height: 100vh; /*lembrando que vh (viewport height) é a área visível da janela do navegador, vh é uma unidade relativa, 100vh = 100% da altura da janela, e 50vh é a metade. 100vh é relativo à janela do navegador
-    e nesse caso, o min-height: 100vh no body, garante que mesmo com pouco conteúdo na página, o fundo escuro cobre a tela inteira. Sem isso, se tiver só um parágrafo, o fundo escuro cobrira apenas aquele pedaço*/
+    min-height: 100vh;
 }
 
 .navbar {
-    position: sticky; /*quando scrollar a página, o a navbar vai fixar no topo e acompanhar, mas quando voltarmos para o topo, ela vai ficar na sua posição padrão*/
-    top: 0; /*tem relação com o position*/
-    z-index: 100; /*o z-index funciona assim, pense na tela como uma pilha de folhas de papel, ele controla qual folha fica na frente*/
+    position: sticky;
+    top: 0;
+    z-index: 100;
     height: 60px;
     padding: 0 32px;
     background: rgba(13, 15, 20, 0.85);
-    backdrop-filter: blur(20px); 
+    backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
@@ -41,7 +43,7 @@ body {
 
 .nav-logo {
     font-family: var(--font-display);
-    font-weight: 800; /*lembrando que aqui defino a espessura da letra, o peso dela*/
+    font-weight: 800;
     font-size: 17px;
     display: flex;
     align-items: center;
@@ -58,13 +60,13 @@ body {
 }
 
 .app {
-    max-width: 1400px; /*aqui limito a largura em telas grandes. Se a tela passar de 1400, o conteúdo vai continuar ocupando 1400px*/
-    margin: 0 auto; /*centralizo na página*/
+    max-width: 1400px;
+    margin: 0 auto;
     padding: 32px;
 }
 
 .app-header {
-    margin-bottom: 32px; /*colocamos uma margin abaixo do cabeçalho (header)*/
+    margin-bottom: 32px;
 }
 
 .app-title {
@@ -89,13 +91,6 @@ body {
     margin-bottom: 16px;
 }
 
-.subject-card { /*classe que criamos para o HTML através do JS*/
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden; /*quando o elemento filho "vaza" para fora. O overflow: hidden corta tudo que ultrapassar as bordas do elemento pai. No nosso caso o border-radius: 16px arredonda os cantos do card. Sem o overflow: hidden, o conteúdo interno poderia aparecer nos cantos retos, quebrando o visual arredondado*/
-}
-
 .subjects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -103,7 +98,20 @@ body {
     margin-bottom: 40px;
 }
 
+.subject-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.subject-card:hover {
+    border-color: var(--border2);
+}
+
 .subject-header {
+    position: relative;
     padding: 16px 18px;
     display: flex;
     align-items: center;
@@ -111,10 +119,40 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
+.subject-header::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--subject-color);
+}
+
 .subject-name {
     font-family: var(--font-display);
     font-size: 14px;
     font-weight: 700;
+}
+
+.btn-icon {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    transition: all 0.15s;
+}
+
+.btn-icon:hover {
+    background: var(--surface2);
+    color: var(--text);
+    border-color: var(--border2);
 }
 
 .add-subject-card {
@@ -132,6 +170,154 @@ body {
 }
 
 .add-subject-card:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.tasks-list {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.task-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 13px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.task-item:hover {
+    border-color: var(--border2);
+}
+
+.task-item.overdue {
+    border-color: rgba(240, 84, 84, 0.25);
+    background: rgba(240, 84, 84, 0.08);
+}
+
+.task-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.task-title {
+    font-size: 13px;
+    font-weight: 500;
+    flex: 1;
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.task-edit-btn {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--border2);
+    border-radius: 5px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    transition: all 0.15s;
+}
+
+.task-edit-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.task-check {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid var(--border2);
+    border-radius: 5px;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    font-size: 10px;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.task-check:hover {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.task-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.task-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.task-deadline {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.task-deadline.soon {
+    color: var(--warning);
+}
+
+.overdue-msg {
+    font-size: 11px;
+    color: var(--danger);
+}
+
+.progress-wrap {
+    flex: 1;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.5s ease;
+}
+
+.add-task-btn {
+    width: calc(100% - 20px);
+    margin: 6px 10px 10px;
+    padding: 9px;
+    background: transparent;
+    border: 1px dashed var(--border2);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-task-btn:hover {
     border-color: var(--accent);
     color: var(--accent);
 }
@@ -173,63 +359,6 @@ body {
     pointer-events: all;
 }
 
-.color-dot {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.15s;
-}
-
-.color-dot:hover {
-    transform: scale(1.15);
-}
-
-.color-picker {
-    display: flex;
-    gap: 8px;
-    margin-top: 2px;
-}
-
-.subject-header {
-    position: relative;
-    padding: 16px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-}
-
-.subject-header::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--subject-color);
-}
-
-.add-task-btn {
-    width: calc(100% - 20px);
-    margin: 6px 10px 10px;
-    padding: 9px;
-    background: transparent;
-    border: 1px dashed var(--border2);
-    border-radius: 8px;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-family: var(--font-body);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.add-task-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-}
-
 .modal-title {
     font-family: var(--font-display);
     font-size: 17px;
@@ -251,7 +380,7 @@ body {
     display: block;
 }
 
-.form-input, .form-textarea{
+.form-input, .form-textarea {
     width: 100%;
     background: var(--surface2);
     border: 1px solid var(--border2);
@@ -261,6 +390,11 @@ body {
     font-size: 13px;
     color: var(--text);
     outline: none;
+    transition: border-color 0.15s;
+}
+
+.form-input:focus, .form-textarea:focus {
+    border-color: var(--accent);
 }
 
 .form-textarea {
@@ -288,65 +422,45 @@ body {
     transition: all 0.15s;
 }
 
+.btn:hover {
+    background: var(--surface);
+}
+
 .btn-primary {
     background: var(--accent);
     border-color: var(--accent);
     color: #fff;
 }
 
-.tasks-list {
-    padding: 10px;
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.color-picker {
     display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.task-item {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 13px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.task-item:hover {
-    border-color: var(--border2);
-<<<<<<< HEAD
-}
-
-.task-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
     gap: 8px;
+    margin-top: 2px;
 }
 
-.task-title {
-    font-size: 13px;
-    font-weight: 500;
-    flex: 1;
-}
-
-.task-check {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid var(--border2);
-    border-radius: 5px;
-    background: transparent;
-    color: transparent;
+.color-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     cursor: pointer;
-    display: grid;
-    place-items: center;
-    font-size: 10px;
+    border: 2px solid transparent;
     transition: all 0.15s;
-    flex-shrink: 0;
 }
 
-.task-check:hover {
-    border-color: #3ecf8e;
-    color: #3ecf8e;
+.color-dot:hover, .color-dot.active {
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.completed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
 }
 
 .completed-task {
@@ -357,6 +471,10 @@ body {
     display: flex;
     align-items: flex-start;
     gap: 10px;
+}
+
+.completed-info {
+    flex: 1;
 }
 
 .completed-title {
@@ -372,10 +490,49 @@ body {
     margin-top: 3px;
 }
 
-.completed-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 12px;
-=======
->>>>>>> 78762e5ef6e564e73303a18b97b85b6ca5d07f2f
+.completed-remove {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.15s;
+    padding: 2px;
+}
+
+.completed-remove:hover {
+    color: var(--danger);
+}
+
+.empty-state {
+    padding: 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12.5px;
+}
+
+@media (max-width: 768px) {
+    .app {
+        padding: 16px;
+    }
+
+    .navbar {
+        padding: 0 16px;
+    }
+
+    .subjects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .completed-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        width: 90vw;
+    }
+
+    .app-title {
+        font-size: 22px;
+    }
 }
