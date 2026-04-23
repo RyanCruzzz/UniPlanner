@@ -121,12 +121,14 @@ function saveSubject() {
     document.getElementById('subjectName').value = ''
     closeModal()
     render()
+    saveData()
 }
 
 function removeSubject(id) {
     subjects = subjects.filter(function(s) { return s.id !== id })
     tasks = tasks.filter(function(t) { return t.subjectId !== id })
     render()
+    saveData()
 }
 
 function openTaskModal(subjectId) {
@@ -160,6 +162,7 @@ function saveTask() {
 
     closeModal()
     render()
+    saveData()
 }
 
 function completeTask(id) {
@@ -170,11 +173,13 @@ function completeTask(id) {
     tasks = tasks.filter(function(t) { return t.id !== id })
 
     render()
+    saveData()
 }
 
 function removeCompleted(id) {
     completedTasks = completedTasks.filter(function(t) { return t.id !== id })
     renderCompleted()
+    saveData()
 }
 
 function openEditTaskModal(taskId) {
@@ -209,6 +214,7 @@ function saveEditTask() {
     currentEditTaskId = null
     closeModal()
     render()
+    saveData()
 }
 
 function buildColorPicker() {
@@ -246,5 +252,22 @@ function setDate() {
     document.getElementById('navDate').textContent = d.toLocaleDateString('pt-BR', opts)
 }
 
+function saveData() {
+    localStorage.setItem('subjects', JSON.stringify(subjects))
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+    localStorage.setItem('completedTasks', JSON.stringify(completedTasks))
+}
+
+function loadData() {
+    const savedSubjects = localStorage.getItem('subjects')
+    const savedTasks = localStorage.getItem('tasks')
+    const savedCompleted = localStorage.getItem('completedTasks')
+
+    if (savedSubjects) subjects = JSON.parse(savedSubjects)
+    if (savedTasks) tasks = JSON.parse(savedTasks)
+    if (savedCompleted) completedTasks = JSON.parse(savedCompleted)
+}
+
+loadData()
 render()
 setDate()
