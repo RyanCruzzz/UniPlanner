@@ -24,6 +24,18 @@
             <p class="app-subtitle">Gerencie suas atividades acadêmicas</p>
         </header>
 
+        <!-- Mensagem de boas vindas -->
+        <div class="welcome-banner" id="welcomeBanner">
+            <div class="welcome-content">
+                <span class="welcome-icon">👋</span>
+                <div class="welcome-text">
+                    <strong>Bem-vindo ao UniPlanner!</strong>
+                    <p>Comece criando sua primeira disciplina clicando em "+ Nova Disciplina".</p>
+                </div>
+                <button class="welcome-close" onclick="closeWelcome()">✕</button>
+            </div>
+        </div>
+
         <section id="subjectsSection">
             <h2 class="section-label">Disciplinas</h2>
             <div class="subjects-grid" id="subjectsGrid"></div>
@@ -36,8 +48,12 @@
 
     </main>
 
+    <!-- Toast de feedback -->
+    <div class="toast" id="toast"></div>
+
     <div class="overlay" id="overlay"></div>
 
+    <!-- Modal: Nova Disciplina -->
     <div class="modal" id="modalSubject">
         <h2 class="modal-title">Nova Disciplina</h2>
         <div class="form-group">
@@ -54,6 +70,7 @@
         </div>
     </div>
 
+    <!-- Modal: Nova Tarefa -->
     <div class="modal" id="modalTask">
         <h2 class="modal-title">Nova Tarefa</h2>
         <div class="form-group">
@@ -74,6 +91,7 @@
         </div>
     </div>
 
+    <!-- Modal: Editar Tarefa -->
     <div class="modal" id="modalEditTask">
         <h2 class="modal-title">Editar Tarefa</h2>
         <div class="form-group">

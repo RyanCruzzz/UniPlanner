@@ -10,7 +10,10 @@ function renderSubjects() {
         const card = `
             <div class="subject-card" style="--subject-color:${subject.color}">
                 <div class="subject-header">
-                    <div class="subject-name">${subject.name}</div>
+                    <div class="subject-name">
+                        ${subject.name}
+                        <span class="task-counter">${subjectTasks.length}/10</span>
+                    </div>
                     <button class="btn-icon" onclick="removeSubject('${subject.id}')">✕</button>
                 </div>
                 <div class="tasks-list">
@@ -101,6 +104,27 @@ function render() {
     renderCompleted()
 }
 
+function showToast(message) {
+    const toast = document.getElementById('toast')
+    toast.textContent = message
+    toast.classList.add('show')
+    setTimeout(function() {
+        toast.classList.remove('show')
+    }, 2500)
+}
+
+function checkWelcome() {
+    const visited = localStorage.getItem('visited')
+    if (!visited) {
+        document.getElementById('welcomeBanner').style.display = 'block'
+    }
+}
+
+function closeWelcome() {
+    document.getElementById('welcomeBanner').style.display = 'none'
+    localStorage.setItem('visited', 'true')
+}
+
 function openSubjectModal() {
     buildColorPicker()
     document.getElementById('subjectName').value = ''
@@ -122,13 +146,18 @@ function saveSubject() {
     closeModal()
     render()
     saveData()
+    showToast('✓ Disciplina criada!')
 }
 
 function removeSubject(id) {
+    const confirmed = window.confirm('Tem certeza que deseja remover essa disciplina? Todas as tarefas associadas serão removidas.')
+    if (!confirmed) return
+
     subjects = subjects.filter(function(s) { return s.id !== id })
     tasks = tasks.filter(function(t) { return t.subjectId !== id })
     render()
     saveData()
+    showToast('Disciplina removida.')
 }
 
 function openTaskModal(subjectId) {
@@ -147,6 +176,12 @@ function saveTask() {
 
     if (title === '' || deadline === '') return
 
+    const subjectTasks = tasks.filter(function(t) { return t.subjectId === currentSubjectId })
+    if (subjectTasks.length >= 10) {
+        showToast('⚠ Limite de 10 tarefas por disciplina!')
+        return
+    }
+
     tasks.push({
         id: 't' + Date.now(),
         title: title,
@@ -163,6 +198,7 @@ function saveTask() {
     closeModal()
     render()
     saveData()
+    showToast('✓ Tarefa criada!')
 }
 
 function completeTask(id) {
@@ -174,12 +210,14 @@ function completeTask(id) {
 
     render()
     saveData()
+    showToast('✓ Tarefa concluída!')
 }
 
 function removeCompleted(id) {
     completedTasks = completedTasks.filter(function(t) { return t.id !== id })
     renderCompleted()
     saveData()
+    showToast('Tarefa removida.')
 }
 
 function openEditTaskModal(taskId) {
@@ -215,6 +253,7 @@ function saveEditTask() {
     closeModal()
     render()
     saveData()
+    showToast('✓ Tarefa atualizada!')
 }
 
 function buildColorPicker() {
@@ -271,3 +310,4 @@ function loadData() {
 loadData()
 render()
 setDate()
+checkWelcome()
