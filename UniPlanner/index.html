@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
     <nav class="navbar">
         <div class="nav-logo">
@@ -24,7 +22,23 @@
             <p class="app-subtitle">Gerencie suas atividades acadêmicas</p>
         </header>
 
-        <!-- Mensagem de boas vindas -->
+        <div class="stats-bar" id="statsBar"></div>
+
+        <div class="filters-bar">
+            <div class="filter-buttons">
+                <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">Todas</button>
+                <button class="filter-btn" id="filter-pending" onclick="setFilter('pending')">Pendentes</button>
+                <button class="filter-btn" id="filter-overdue" onclick="setFilter('overdue')">Atrasadas</button>
+                <button class="filter-btn" id="filter-name" onclick="sortByName()">A–Z</button>
+            </div>
+            <input
+                type="text"
+                class="search-input"
+                placeholder="🔍 Buscar tarefa..."
+                oninput="setSearch(this.value)"
+            />
+        </div>
+
         <div class="welcome-banner" id="welcomeBanner">
             <div class="welcome-content">
                 <span class="welcome-icon">👋</span>
@@ -48,12 +62,9 @@
 
     </main>
 
-    <!-- Toast de feedback -->
     <div class="toast" id="toast"></div>
-
     <div class="overlay" id="overlay"></div>
 
-    <!-- Modal: Nova Disciplina -->
     <div class="modal" id="modalSubject">
         <h2 class="modal-title">Nova Disciplina</h2>
         <div class="form-group">
@@ -70,7 +81,6 @@
         </div>
     </div>
 
-    <!-- Modal: Nova Tarefa -->
     <div class="modal" id="modalTask">
         <h2 class="modal-title">Nova Tarefa</h2>
         <div class="form-group">
@@ -91,7 +101,6 @@
         </div>
     </div>
 
-    <!-- Modal: Editar Tarefa -->
     <div class="modal" id="modalEditTask">
         <h2 class="modal-title">Editar Tarefa</h2>
         <div class="form-group">
@@ -115,5 +124,4 @@
     <script src="js/model.js"></script>
     <script src="js/scripts.js"></script>
 </body>
-
 </html>

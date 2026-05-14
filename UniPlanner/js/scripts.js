@@ -1,11 +1,39 @@
+let filterStatus = 'all'
+let searchQuery = ''
+
 function renderSubjects() {
     const grid = document.getElementById('subjectsGrid')
     grid.innerHTML = ''
 
-    subjects.forEach(function(subject) {
+    let sortedSubjects = [...subjects].sort(function(a, b) {
+        if (filterStatus === 'name') return a.name.localeCompare(b.name)
+        return 0
+    })
+
+    sortedSubjects.forEach(function(subject) {
         const subjectTasks = tasks.filter(function(task) {
             return task.subjectId === subject.id
         })
+
+        let filteredTasks = subjectTasks
+
+        if (searchQuery !== '') {
+            filteredTasks = filteredTasks.filter(function(task) {
+                return task.title.toLowerCase().includes(searchQuery.toLowerCase())
+            })
+        }
+
+        if (filterStatus === 'pending') {
+            const now = new Date(); now.setHours(0,0,0,0)
+            filteredTasks = filteredTasks.filter(function(task) {
+                return new Date(task.deadline) >= now
+            })
+        } else if (filterStatus === 'overdue') {
+            const now = new Date(); now.setHours(0,0,0,0)
+            filteredTasks = filteredTasks.filter(function(task) {
+                return new Date(task.deadline) < now
+            })
+        }
 
         const card = `
             <div class="subject-card" style="--subject-color:${subject.color}">
@@ -17,7 +45,7 @@ function renderSubjects() {
                     <button class="btn-icon" onclick="removeSubject('${subject.id}')">✕</button>
                 </div>
                 <div class="tasks-list">
-                    ${subjectTasks.map(function(task) {
+                    ${filteredTasks.length === 0 ? '<div class="empty-state">Nenhuma tarefa encontrada.</div>' : filteredTasks.map(function(task) {
                         return renderTask(task)
                     }).join('')}
                 </div>
@@ -99,9 +127,47 @@ function renderCompleted() {
     })
 }
 
+function renderStatsBar() {
+    const now = new Date(); now.setHours(0,0,0,0)
+    const overdue = tasks.filter(function(t) { return new Date(t.deadline) < now }).length
+    const pending = tasks.filter(function(t) { return new Date(t.deadline) >= now }).length
+    const total = tasks.length
+
+    document.getElementById('statsBar').innerHTML = `
+        <div class="stat-chip"><span class="stat-dot" style="background:#6fb8fc"></span><strong>${total}</strong> tarefas</div>
+        <div class="stat-chip"><span class="stat-dot" style="background:#3ecf8e"></span><strong>${pending}</strong> pendentes</div>
+        <div class="stat-chip"><span class="stat-dot" style="background:#f05454"></span><strong>${overdue}</strong> atrasadas</div>
+        <div class="stat-chip"><span class="stat-dot" style="background:#3ecf8e"></span><strong>${completedTasks.length}</strong> concluídas</div>
+    `
+}
+
 function render() {
     renderSubjects()
     renderCompleted()
+    renderStatsBar()
+}
+
+function setFilter(status) {
+    filterStatus = status
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        btn.classList.remove('active')
+    })
+    document.getElementById('filter-' + status).classList.add('active')
+    render()
+}
+
+function setSearch(value) {
+    searchQuery = value
+    render()
+}
+
+function sortByName() {
+    filterStatus = 'name'
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+        btn.classList.remove('active')
+    })
+    document.getElementById('filter-name').classList.add('active')
+    render()
 }
 
 function showToast(message) {
@@ -306,6 +372,7 @@ function loadData() {
     if (savedTasks) tasks = JSON.parse(savedTasks)
     if (savedCompleted) completedTasks = JSON.parse(savedCompleted)
 }
+
 
 loadData()
 render()
