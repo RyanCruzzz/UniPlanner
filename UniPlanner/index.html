@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,63 +8,121 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-logo">
-            <span class="nav-logo-text">UniPlanner</span>
-        </div>
-        <div class="nav-date" id="navDate"></div>
-    </nav>
 
-    <main class="app">
+    <!-- TELA DE LOADING -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">UniPlanner</div>
+        <div class="loading-spinner"></div>
+    </div>
 
-        <header class="app-header">
-            <h1 class="app-title">Minhas Tarefas</h1>
-            <p class="app-subtitle">Gerencie suas atividades acadêmicas</p>
-        </header>
-
-        <div class="stats-bar" id="statsBar"></div>
-
-        <div class="filters-bar">
-            <div class="filter-buttons">
-                <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">Todas</button>
-                <button class="filter-btn" id="filter-pending" onclick="setFilter('pending')">Pendentes</button>
-                <button class="filter-btn" id="filter-overdue" onclick="setFilter('overdue')">Atrasadas</button>
-                <button class="filter-btn" id="filter-name" onclick="sortByName()">A–Z</button>
+    <!-- TELA DE LOGIN -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">UniPlanner</div>
+                <p class="login-subtitle">Gerencie suas atividades acadêmicas</p>
             </div>
-            <input
-                type="text"
-                class="search-input"
-                placeholder="🔍 Buscar tarefa..."
-                oninput="setSearch(this.value)"
-            />
-        </div>
-
-        <div class="welcome-banner" id="welcomeBanner">
-            <div class="welcome-content">
-                <span class="welcome-icon">👋</span>
-                <div class="welcome-text">
-                    <strong>Bem-vindo ao UniPlanner!</strong>
-                    <p>Comece criando sua primeira disciplina clicando em "+ Nova Disciplina".</p>
+            <div id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">RA</label>
+                    <input type="text" class="form-input" id="loginRA" placeholder="Digite seu RA">
                 </div>
-                <button class="welcome-close" onclick="closeWelcome()">✕</button>
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-input" id="loginPassword" placeholder="Digite sua senha">
+                </div>
+                <div id="loginError" class="login-error"></div>
+                <button class="btn btn-primary btn-full" onclick="doLogin()">Entrar</button>
+                <p class="login-switch">Não tem conta? <span onclick="showRegister()">Cadastrar</span></p>
+            </div>
+            <div id="registerForm" style="display:none">
+                <div class="form-group">
+                    <label class="form-label">RA</label>
+                    <input type="text" class="form-input" id="registerRA" placeholder="Digite seu RA">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-input" id="registerPassword" placeholder="Crie uma senha">
+                </div>
+                <div id="registerError" class="login-error"></div>
+                <button class="btn btn-primary btn-full" onclick="doRegister()">Cadastrar</button>
+                <p class="login-switch">Já tem conta? <span onclick="showLogin()">Entrar</span></p>
             </div>
         </div>
+    </div>
 
-        <section id="subjectsSection">
-            <h2 class="section-label">Disciplinas</h2>
-            <div class="subjects-grid" id="subjectsGrid"></div>
-        </section>
+    <!-- APP PRINCIPAL -->
+    <div class="app-screen" id="appScreen" style="display:none">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <span class="nav-logo-text">UniPlanner</span>
+            </div>
+            <div class="nav-actions">
+                <div class="nav-date" id="navDate"></div>
+                <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Alternar tema">🌙</button>
+                <button class="btn-logout" onclick="doLogout()" title="Sair">⏻</button>
+            </div>
+        </nav>
 
-        <section id="completedSection">
-            <h2 class="section-label">Tarefas Concluídas</h2>
-            <div class="completed-grid" id="completedGrid"></div>
-        </section>
+        <main class="app">
+            <header class="app-header">
+                <h1 class="app-title">Minhas Tarefas</h1>
+                <p class="app-subtitle" id="userGreeting">Gerencie suas atividades acadêmicas</p>
+            </header>
 
-    </main>
+            <div class="stats-bar" id="statsBar"></div>
+
+            <div class="filters-bar">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" id="filter-all" onclick="setFilter('all')">Todas</button>
+                    <button class="filter-btn" id="filter-pending" onclick="setFilter('pending')">Pendentes</button>
+                    <button class="filter-btn" id="filter-overdue" onclick="setFilter('overdue')">Atrasadas</button>
+                    <button class="filter-btn" id="filter-name" onclick="sortByName()">A–Z</button>
+                </div>
+                <input type="text" class="search-input" placeholder="🔍 Buscar tarefa..." oninput="setSearch(this.value)" />
+            </div>
+
+            <div class="welcome-banner" id="welcomeBanner">
+                <div class="welcome-content">
+                    <span class="welcome-icon">👋</span>
+                    <div class="welcome-text">
+                        <strong>Bem-vindo ao UniPlanner!</strong>
+                        <p>Comece criando sua primeira disciplina clicando em "+ Nova Disciplina".</p>
+                    </div>
+                    <button class="welcome-close" onclick="closeWelcome()">✕</button>
+                </div>
+            </div>
+
+            <section id="subjectsSection">
+                <h2 class="section-label">Disciplinas</h2>
+                <div class="subjects-grid" id="subjectsGrid"></div>
+            </section>
+
+            <section id="completedSection">
+                <h2 class="section-label">Tarefas Concluídas</h2>
+                <div class="completed-grid" id="completedGrid"></div>
+            </section>
+        </main>
+    </div>
 
     <div class="toast" id="toast"></div>
     <div class="overlay" id="overlay"></div>
+    <div class="overlay confirm-overlay" id="confirmOverlay"></div>
 
+    <!-- Modal de confirmação customizado -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-box">
+            <div class="confirm-icon">⚠</div>
+            <div class="confirm-title" id="confirmTitle">Tem certeza?</div>
+            <div class="confirm-msg" id="confirmMsg"></div>
+            <div class="confirm-actions">
+                <button class="btn" onclick="cancelConfirm()">Cancelar</button>
+                <button class="btn btn-danger" id="confirmOkBtn" onclick="confirmOk()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Nova Disciplina -->
     <div class="modal" id="modalSubject">
         <h2 class="modal-title">Nova Disciplina</h2>
         <div class="form-group">
@@ -81,6 +139,7 @@
         </div>
     </div>
 
+    <!-- Modal: Nova Tarefa -->
     <div class="modal" id="modalTask">
         <h2 class="modal-title">Nova Tarefa</h2>
         <div class="form-group">
@@ -95,12 +154,30 @@
             <label class="form-label">Prazo</label>
             <input type="date" class="form-input" id="taskDeadline">
         </div>
+        <div class="form-group">
+            <label class="form-label">Prioridade</label>
+            <select class="form-input" id="taskPriority">
+                <option value="low">🟢 Baixa</option>
+                <option value="medium" selected>🟡 Média</option>
+                <option value="high">🔴 Alta</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Tags</label>
+            <div class="tags-picker" id="taskTagsPicker">
+                <label class="tag-option"><input type="checkbox" value="prova"> Prova</label>
+                <label class="tag-option"><input type="checkbox" value="trabalho"> Trabalho</label>
+                <label class="tag-option"><input type="checkbox" value="lista"> Lista</label>
+                <label class="tag-option"><input type="checkbox" value="projeto"> Projeto</label>
+            </div>
+        </div>
         <div class="modal-actions">
             <button class="btn" onclick="closeModal()">Cancelar</button>
             <button class="btn btn-primary" onclick="saveTask()">Criar</button>
         </div>
     </div>
 
+    <!-- Modal: Editar Tarefa -->
     <div class="modal" id="modalEditTask">
         <h2 class="modal-title">Editar Tarefa</h2>
         <div class="form-group">
@@ -114,6 +191,28 @@
         <div class="form-group">
             <label class="form-label">Prazo</label>
             <input type="date" class="form-input" id="editTaskDeadline">
+        </div>
+        <div class="form-group">
+            <label class="form-label">Prioridade</label>
+            <select class="form-input" id="editTaskPriority">
+                <option value="low">🟢 Baixa</option>
+                <option value="medium">🟡 Média</option>
+                <option value="high">🔴 Alta</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Progresso (%)</label>
+            <input type="range" class="form-range" id="editTaskProgress" min="0" max="100" step="10" oninput="updateProgressLabel(this.value)">
+            <div class="range-label" id="progressLabel">0%</div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Tags</label>
+            <div class="tags-picker" id="tagsPicker">
+                <label class="tag-option"><input type="checkbox" value="prova"> Prova</label>
+                <label class="tag-option"><input type="checkbox" value="trabalho"> Trabalho</label>
+                <label class="tag-option"><input type="checkbox" value="lista"> Lista</label>
+                <label class="tag-option"><input type="checkbox" value="projeto"> Projeto</label>
+            </div>
         </div>
         <div class="modal-actions">
             <button class="btn" onclick="closeModal()">Cancelar</button>
